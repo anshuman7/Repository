@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8"> 
+
+  <title>Anshuman | Text Editor</title>
+
+  <link rel='stylesheet prefetch' href='http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css'>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src='sizzle.min.js'></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+
+<body>
+  <div>
+  <div>
+    <div id='buttons'>
+      <h1>Text Editor</h1>
+      <div>
+        <a data-role='bold' href='#'><i class='fa fa-bold'></i></a>
+        <a data-role='italic' href='#'><i class='fa fa-italic'></i></a>
+        <a data-role='justifyLeft' href='#'><i class='fa fa-align-left'></i></a>
+        <a data-role='justifyCenter' href='#'><i class='fa fa-align-center'></i></a>
+        <a data-role='justifyRight' href='#'><i class='fa fa-align-right'></i></a>
+        <a data-role='justifyFull' href='#'><i class='fa fa-align-justify'></i></a>
+      </div>
+    </div>
+    <div id='textEditor' contenteditable="true" onkeypress="validate(event)" >
+       This is <b>content editable</b>..Enter text here...
+    </div>
+  </div>
+</div>
+
+  <script>
+
+ 
+//to select only the highlighted part of the div and apply the button on it
+$('#buttons a').click(function(e) {
+      e.preventDefault();
+      document.execCommand($(this).data('role'), false, null);
+
+})
+  </script>
+
+  <script type="text/javascript">
+
+$('#textEditor').bind('paste', function(){ // catch the paste-event in the DIV
+    // get content before paste
+    var before = document.getElementById('textEditor').innerHTML;
+    setTimeout(function(){
+        // get content after paste by a 100ms delay
+        var after = document.getElementById('textEditor').innerHTML;
+        // find the start and end position where the two differ
+        var pos1 = -1;
+        var pos2 = -1;
+        for (var i=0; i<after.length; i++) {
+            if (pos1 == -1 && before.substr(i, 1) != after.substr(i, 1)) pos1 = i;
+            if (pos2 == -1 && before.substr(before.length-i-1, 1) != after.substr(after.length-i-1, 1)) pos2 = i;
+        }
+        // the difference = pasted string with HTML:
+        var pasted = after.substr(pos1, after.length-pos2-pos1);
+        // strip the tags:
+        var replace = pasted.replace(/<[^>]+>/g, '');
+        // build clean content:
+        var replaced = after.substr(0, pos1)+replace+after.substr(pos1+pasted.length);
+        // replace the HTML mess with the plain content
+        document.getElementById('textEditor').innerHTML = replaced;
+    }, 100);
+});
+  </script>
+
+
+</body>
+
+</html>
+ 
