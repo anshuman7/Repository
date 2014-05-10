@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8"> 
+
+  <title>Anshuman | Text Editor</title>
+
+  <link rel='stylesheet prefetch' href='http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css'>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src='sizzle.min.js'></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+
+<body>
+  <div>
+  <div>
+    <div id='buttons'>
+      <h1>Text Editor</h1>
+      <div>
+        <a data-role='bold' href='#'><i class='fa fa-bold'></i></a>
+        <a data-role='italic' href='#'><i class='fa fa-italic'></i></a>
+        <a data-role='justifyLeft' href='#'><i class='fa fa-align-left'></i></a>
+        <a data-role='justifyCenter' href='#'><i class='fa fa-align-center'></i></a>
+        <a data-role='justifyRight' href='#'><i class='fa fa-align-right'></i></a>
+        <a data-role='justifyFull' href='#'><i class='fa fa-align-justify'></i></a>
+      </div>
+    </div>
+    <div id='textEditor' contenteditable="true" class="on" >
+       This is <b>content editable</b>..Enter text here...
+    </div>
+  </div>
+</div>
+
+  <script>
+
+  //to allow only plaintext.
+  $('.on[contenteditable]').on('paste', function (e) {
+    e.preventDefault();
+    var text = (e.originalEvent || e).clipboardData.getData('text/plain');
+    document.execCommand('insertText', false, text);
+});
+
+//to select only the highlighted part of the div and apply the button on it
+$('#buttons a').click(function(e) {
+      e.preventDefault();
+      document.execCommand($(this).data('role'), false, null);
+
+})
+  </script>
+
+
+</body>
+
+</html>
+ 
