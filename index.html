@@ -37,10 +37,35 @@
   <script>
 
   //to allow only plaintext.
-  $('.on[contenteditable]').on('paste', function (e) {
+ $('.on[contenteditable]').on('paste', function (e) {
     e.preventDefault();
     var text = (e.originalEvent || e).clipboardData.getData('text/plain');
-    document.execCommand('insertText', false, text);
+    var text1 = (e.originalEvent || e).clipboardData.getData('text/html');
+    if(text1 == ""){ 
+      document.execCommand('insertText', false, text); 
+    }
+    else { var $result = $('<div></div>').append(text1);
+    document.execCommand('insertHTML', false, $result.html() );
+
+            // replace all styles except bold and italic
+            $.each($(this).find("*"), function(idx, val) {
+
+                var $item = $(val);
+                if ($item.length > 0){
+                   var saveStyle = {
+                        'font-weight': $item.css('font-weight'),
+                        'font-style': $item.css('font-style')
+                    };
+                    $item.removeAttr('style')
+                         .removeClass()
+                         .css(saveStyle); 
+                }
+                  //  remove unnecesary tags
+            $(this).children('style').remove();
+            $(this).children('meta').remove()
+            $(this).children('link').remove();
+            });
+          }
 });
 
 //to select only the highlighted part of the div and apply the button on it
