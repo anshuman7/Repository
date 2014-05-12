@@ -23,7 +23,7 @@ a{
   border-radius:0;
   width:1em;}
   
-  h1 { color : #4682B4 } ;
+
 
 li {
     list-style-type:none;
@@ -32,4 +32,8 @@ li {
 
   }
 
- #textEditor u , strike {text-decoration:none;}
+ #textEditor u , strike {
+   text-decoration:none;
+   }
+   
+   
