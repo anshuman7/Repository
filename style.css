@@ -24,3 +24,12 @@ a{
   width:1em;}
   
   h1 { color : #4682B4 } ;
+
+li {
+    list-style-type:none;
+    float: left;
+    margin-left: 0.5em;
+
+  }
+
+ #textEditor u {text-decoration:none;}
