@@ -59,7 +59,14 @@
                     $item.removeAttr('style')
                          .removeClass()
                          .css(saveStyle); 
-                }
+                
+              
+                    $item.removeAttr('href').removeClass();
+                    $item.removeAttr('link').removeClass();
+                    $item.removeAttr('a').removeClass();
+                    $item.removeAttr('src').removeClass();
+                    $item.removeAttr('img').removeClass();
+            }
                   //  remove unnecesary tags
             $(this).children('style').remove();
             $(this).children('meta').remove()
